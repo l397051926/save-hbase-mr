@@ -1,6 +1,7 @@
 package com.gennlife.map;
 
 import com.gennlife.handler.AnalysisJSON;
+import com.gennlife.util.ConfigProperties;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.util.Bytes;
@@ -25,7 +26,7 @@ public class IndexHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWri
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
-        colFamily1 = "data";
+        colFamily1 = ConfigProperties.INDEX_COLFAMILY1;
         super.setup(context);
     }
 

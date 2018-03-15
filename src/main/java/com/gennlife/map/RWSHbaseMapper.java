@@ -1,6 +1,7 @@
 package com.gennlife.map;
 
 import com.gennlife.handler.AnalysisJSON;
+import com.gennlife.util.ConfigProperties;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
@@ -29,9 +30,9 @@ public class RWSHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWrita
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
-        colFamily1 = "patient_info";
-        colFamily2 = "visit_info";
-        super.setup(context);
+        colFamily1 = ConfigProperties.RWS_COLFAMILY1;
+        colFamily2 = ConfigProperties.RWS_COLFAMILY2;
+//        super.setup(context);
     }
 
     @Override//map函数
@@ -55,7 +56,8 @@ public class RWSHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWrita
 
             context.write(new ImmutableBytesWritable(Bytes.toBytes(rowKey)),put);
 //            context.getCounter(ImportFromFile.Counters.LINES).increment(1);
-
+            analysisJSON.clearMap();
+            analysisJSON=null;
 
 
         }catch (Exception e){

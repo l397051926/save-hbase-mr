@@ -89,5 +89,9 @@ public class AnalysisJSON {
         }
     }
 
+    public void clearMap(){
+        map.clear();
+    }
+
 
 }

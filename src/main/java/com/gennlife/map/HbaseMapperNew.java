@@ -38,12 +38,10 @@ public class HbaseMapperNew extends Mapper<WritableComparable, HCatRecord,Immuta
 
         try {
             //获取字符串
-//            String lineString = value.toString();
-
             String data = (String)value.get(1);
             AnalysisJSON analysisJSON = new AnalysisJSON();
             HashMap<String,String> map = analysisJSON.getMap(data);
-
+            analysisJSON.clearMap();
             String rowKey= map.get("PATIENT_SN");
             map.remove("PATIENT_SN");
             Put put = new Put(Bytes.toBytes(rowKey));
@@ -54,6 +52,7 @@ public class HbaseMapperNew extends Mapper<WritableComparable, HCatRecord,Immuta
             }
 
             context.write(new ImmutableBytesWritable(Bytes.toBytes(rowKey)),put);
+            analysisJSON =null;
 //            context.getCounter(ImportFromFile.Counters.LINES).increment(1);
         }catch (Exception e){
             e.printStackTrace();
