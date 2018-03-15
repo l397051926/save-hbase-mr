@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * @author liumingxin
  * @create 2018 15 14:07
- * @desc
+ * @desc 索引mapper 到hbase
  **/
 public class IndexHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWritable,Put> {
 

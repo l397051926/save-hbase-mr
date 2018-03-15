@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * @author liumingxin
  * @create 2018 14 10:36
- * @desc
+ * @desc  使用 hive连接方式
  **/
 public class HbaseMapperNew extends Mapper<WritableComparable, HCatRecord,ImmutableBytesWritable,Put> {
 

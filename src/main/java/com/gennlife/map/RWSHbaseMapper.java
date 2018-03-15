@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * @author liumingxin
  * @create 2018 14 10:36
- * @desc
+ * @desc  rws mapper 到hbase
  **/
 public class RWSHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWritable,Put> {
 

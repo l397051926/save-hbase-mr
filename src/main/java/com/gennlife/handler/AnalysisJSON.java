@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author liumingxin
  * @create 2018 14 20:19
- * @desc
+ * @desc  筛选组合数据
  **/
 public class AnalysisJSON {
 
