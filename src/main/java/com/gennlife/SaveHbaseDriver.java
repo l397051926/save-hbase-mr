@@ -15,6 +15,8 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -23,7 +25,7 @@ import org.apache.hadoop.util.ToolRunner;
  * @desc
  **/
 public class SaveHbaseDriver extends Configured implements Tool {
-
+    private static final Logger LOGGER= LoggerFactory.getLogger(SaveHbaseDriver.class);
     public int run(String[] args) throws Exception {
 
         if (args.length<4){
@@ -85,7 +87,11 @@ public class SaveHbaseDriver extends Configured implements Tool {
     }
 
     public static void main(String[] args) throws Exception {
+        long startTime = System.currentTimeMillis();
+        LOGGER.info("开始处理MR");
         int exitCode = ToolRunner.run(new SaveHbaseDriver(),args);
+        long endTime = System.currentTimeMillis();
+        LOGGER.info("处理结束： 用时: "+(endTime-startTime)+"ms");
         System.exit(exitCode);
     }
 

@@ -137,9 +137,9 @@ public class HbaseUtils {
         Table table = connection.getTable(TableName.valueOf(tableName));
         Get get = new Get(Bytes.toBytes(rowkey));
         //获取指定列族数据
-        //get.addFamily(Bytes.toBytes(colFamily));
+        get.addFamily(Bytes.toBytes(colFamily));
         //获取指定列数据
-        //get.addColumn(Bytes.toBytes(colFamily),Bytes.toBytes(col));
+        get.addColumn(Bytes.toBytes(colFamily),Bytes.toBytes(col));
         Result result = table.get(get);
 
         showCell(result);

@@ -1,6 +1,7 @@
 package com.gennlife.map;
 
 import com.gennlife.handler.AnalysisJSON;
+import com.gennlife.util.ComPressUtils;
 import com.gennlife.util.ConfigProperties;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.hadoop.hbase.client.Put;
@@ -52,20 +53,22 @@ public class RWSHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWrita
             rowKey= map.get("PATIENT_SN");
             map.remove("PATIENT_SN");
             Put put = new Put(Bytes.toBytes(rowKey));
-            put.addColumn(Bytes.toBytes(colFamily1),Bytes.toBytes("patient_info"),Snappy.compress(map.get("patient_info")));
+            put.addColumn(Bytes.toBytes(colFamily1),Bytes.toBytes("patient_info"), ComPressUtils.compress(map.get("patient_info")));
+//            put.addColumn(Bytes.toBytes(colFamily1),Bytes.toBytes("patient_info"),Bytes.toBytes(map.get("patient_info")));
             map.remove("patient_info");
             for(Map.Entry<String,String> entry : map.entrySet()){
-                put.addColumn(Bytes.toBytes(colFamily2),Bytes.toBytes(entry.getKey()),Snappy.compress(entry.getValue()));
+//                put.addColumn(Bytes.toBytes(colFamily2),Bytes.toBytes(entry.getKey()),Bytes.toBytes(entry.getValue()));
+                put.addColumn(Bytes.toBytes(colFamily2),Bytes.toBytes(entry.getKey()),ComPressUtils.compress(entry.getValue()));
             }
 
             context.write(new ImmutableBytesWritable(Bytes.toBytes(rowKey)),put);
 //            context.getCounter(ImportFromFile.Counters.LINES).increment(1);
             analysisJSON.clearMap();
             analysisJSON=null;
-
+            LOGGER.info("正在处理RWS表:  rowKey: "+rowKey +"数据");
 
         }catch (Exception e){
-            LOGGER.info("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());
+            LOGGER.error("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());
         }
     }
 
