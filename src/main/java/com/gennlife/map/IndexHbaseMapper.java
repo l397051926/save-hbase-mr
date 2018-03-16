@@ -8,6 +8,8 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xerial.snappy.Snappy;
 
 import java.io.IOException;
@@ -21,6 +23,7 @@ import java.util.Map;
  **/
 public class IndexHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWritable,Put> {
 
+    private static final Logger LOGGER= LoggerFactory.getLogger(IndexHbaseMapper.class);
     private String colFamily1 = null;
 
 
@@ -31,15 +34,19 @@ public class IndexHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWri
     }
 
     @Override//map函数
-    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+    protected void map(LongWritable key, Text value, Context context) {
+
+        String rowKey=null;
+        String data = null;
+
         try {
             //获取字符串
             String lineString = value.toString();
 
-            String rowKey = lineString.split("\u0001")[0];
-            String data = lineString.split("\u0001")[1];
+             rowKey = lineString.split("\u0001")[0];
+             data = lineString.split("\u0001")[1];
 
-//            String rowKey = lineString.split("\t")[0];
+//            String rowKey = lineString.split("\t")[0];  //测试
 //            String data = lineString.split("\t")[1];
 
             Put put = new Put(Bytes.toBytes(rowKey));
@@ -48,7 +55,7 @@ public class IndexHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWri
             context.write(new ImmutableBytesWritable(Bytes.toBytes(rowKey)),put);
 //            context.getCounter(ImportFromFile.Counters.LINES).increment(1);
         }catch (Exception e){
-            e.printStackTrace();
+            LOGGER.info("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());
         }
     }
 }

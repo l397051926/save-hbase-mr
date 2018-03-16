@@ -10,6 +10,8 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xerial.snappy.Snappy;
 
 import java.io.IOException;
@@ -24,7 +26,7 @@ import java.util.Map;
  * @desc  rws mapper 到hbase
  **/
 public class RWSHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWritable,Put> {
-
+    private static final Logger LOGGER= LoggerFactory.getLogger(RWSHbaseMapper.class);
     private String colFamily1 = null;
     private String colFamily2 = null;
 
@@ -36,7 +38,9 @@ public class RWSHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWrita
     }
 
     @Override//map函数
-    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+    protected void map(LongWritable key, Text value, Context context)  {
+
+        String rowKey=null;
         try {
             //获取字符串
             String lineString = value.toString();
@@ -45,7 +49,7 @@ public class RWSHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWrita
 
 //            HashMap<String,String> map = analysisJSON.getMap(lineString.split("\t")[1]);
 
-            String rowKey= map.get("PATIENT_SN");
+            rowKey= map.get("PATIENT_SN");
             map.remove("PATIENT_SN");
             Put put = new Put(Bytes.toBytes(rowKey));
             put.addColumn(Bytes.toBytes(colFamily1),Bytes.toBytes("patient_info"),Snappy.compress(map.get("patient_info")));
@@ -61,7 +65,7 @@ public class RWSHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWrita
 
 
         }catch (Exception e){
-            e.printStackTrace();
+            LOGGER.info("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());
         }
     }
 

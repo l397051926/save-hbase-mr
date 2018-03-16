@@ -28,7 +28,7 @@ public class AnalysisJSON {
             AnalysisString(str);
             return map;
         }catch (Exception e){
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
             return null;
         }
     }
@@ -63,7 +63,7 @@ public class AnalysisJSON {
                 }
             }
         }catch (Exception e){
-
+            return;
         }
     }
 
@@ -72,21 +72,25 @@ public class AnalysisJSON {
      * @param str
      */
     public void insertMap(String str){
-        JSONArray jsonArray=JSONArray.parseArray(str);
-        int size = jsonArray==null?0:jsonArray.size();
-        for(int i=0;i<size;i++){
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            for(String key : jsonObject.keySet()){
-                String value = jsonObject.getString(key);
-                if(map.containsKey(key)){
-                    String v1=map.get(key).substring(1,map.get(key).lastIndexOf("]"));
-                    String v2=value.substring(1,value.lastIndexOf("]"));
-                    map.put(key,"["+v1+","+v2+"]");
-                }else {
-                    map.put(key,value);
-                }
-            }
-        }
+      try{
+          JSONArray jsonArray=JSONArray.parseArray(str);
+          int size = jsonArray==null?0:jsonArray.size();
+          for(int i=0;i<size;i++){
+              JSONObject jsonObject = jsonArray.getJSONObject(i);
+              for(String key : jsonObject.keySet()){
+                  String value = jsonObject.getString(key);
+                  if(map.containsKey(key)){
+                      String v1=map.get(key).substring(1,map.get(key).lastIndexOf("]"));
+                      String v2=value.substring(1,value.lastIndexOf("]"));
+                      map.put(key,"["+v1+","+v2+"]");
+                  }else {
+                      map.put(key,value);
+                  }
+              }
+          }
+      }catch (Exception e){
+        LOGGER.info(str+"存入map 失败");
+      }
     }
 
     public void clearMap(){
