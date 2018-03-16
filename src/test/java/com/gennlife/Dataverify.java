@@ -11,9 +11,9 @@ import java.io.*;
  * @desc
  **/
 public class Dataverify {
-    public static void main(String[] args) throws IOException {
+    public static void makjin(String[] args) throws IOException {
         BufferedReader br;
-        br = new BufferedReader(new InputStreamReader(new FileInputStream("data.txt"),"utf-8"));
+        br = new BufferedReader(new InputStreamReader(new FileInputStream("dta.txt"),"utf-8"));
         String onLine = null;
         StringBuffer str= new StringBuffer();
         while((onLine = br.readLine())!=null){

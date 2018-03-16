@@ -50,6 +50,15 @@ public class SaveHbaseDriver extends Configured implements Tool {
         conf.set("hbase.zookeeper.property.clientPort",ConfigProperties.HBASE_ZOOKEEPERP_ROPERTY_CLIENTPORT);
         conf.set("zookeeper.znode.parent",ConfigProperties.ZOOKEEPR_ZNODE_PARENT);
 
+        conf.set("mapreduce.map.memory.mb", "5000");
+        conf.set("mapreduce.reduce.memory.mb", "5000");
+        conf.set("mapreduce.map.java.opts", "-Xmx6000m");
+        conf.set("mapreduce.reduce.java.opts", "-Xmx6000m");
+        conf.set("mapreduce.input.fileinputformat.split.maxsize", "150000000");
+        conf.set("mapreduce.input.fileinputformat.split.minsize", "67000000");
+        conf.set("mapreduce.input.fileinputformat.split.minsize.per.node", "134000000");
+        conf.set("mapreduce.input.fileinputformat.split.minsize.per.rack", "134000000");
+
         Job job = Job.getInstance(conf,"RWSHBASE_JOB");
 
         job.setJarByClass(SaveHbaseDriver.class);
