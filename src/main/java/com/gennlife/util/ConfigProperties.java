@@ -27,6 +27,6 @@ public class ConfigProperties {
     public static final String HIVE_DBNAME="gennlife_jszl_small";
     public static final String HIVE_TABLENAME="patient";
 
-    /*压缩算法*/
-    public static final String COMPRESS_NAME="snaappy";
+    /*压缩算法 snappy gzip */
+    public static final String COMPRESS_NAME="snappy";
 }

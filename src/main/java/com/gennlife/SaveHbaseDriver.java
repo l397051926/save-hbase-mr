@@ -59,6 +59,8 @@ public class SaveHbaseDriver extends Configured implements Tool {
         conf.set("mapreduce.input.fileinputformat.split.minsize.per.node", "134000000");
         conf.set("mapreduce.input.fileinputformat.split.minsize.per.rack", "134000000");
 
+        /*---------------插入到RWS job------------*/
+
         Job job = Job.getInstance(conf,"RWSHBASE_JOB");
 
         job.setJarByClass(SaveHbaseDriver.class);
@@ -75,7 +77,7 @@ public class SaveHbaseDriver extends Configured implements Tool {
 
         job.waitForCompletion(true);
 
-//        /*---------------插入到index job------------*/
+        /*---------------插入到index job------------*/
 
 
         Job indexJob = Job.getInstance(conf,"INDEXHBASE_JOB");
@@ -95,13 +97,17 @@ public class SaveHbaseDriver extends Configured implements Tool {
         return indexJob.waitForCompletion(true)?0:1;
     }
 
-    public static void main(String[] args) throws Exception {
-        long startTime = System.currentTimeMillis();
-        LOGGER.info("开始处理MR");
-        int exitCode = ToolRunner.run(new SaveHbaseDriver(),args);
-        long endTime = System.currentTimeMillis();
-        LOGGER.info("处理结束： 用时: "+(endTime-startTime)+"ms");
-        System.exit(exitCode);
+    public static void main(String[] args){
+        try {
+            long startTime = System.currentTimeMillis();
+            LOGGER.info("开始处理MR");
+            int exitCode = ToolRunner.run(new SaveHbaseDriver(),args);
+            long endTime = System.currentTimeMillis();
+            LOGGER.info("处理结束： 用时: "+(endTime-startTime)+"ms");
+            System.exit(exitCode);
+        }catch (Exception e){
+            LOGGER.error(e.getMessage());
+        }
     }
 
 }
