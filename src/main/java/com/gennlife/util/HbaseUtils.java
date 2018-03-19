@@ -104,7 +104,7 @@ public class HbaseUtils {
                 hTableDescriptor.addFamily(hColumnDescriptor);
             }
             admin.createTable(hTableDescriptor);
-            LOG.info("数据库构建成功");
+            LOG.info(tableNmae+"---数据库构建成功");
         }
         close();
     }

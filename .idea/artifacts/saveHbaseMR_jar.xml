@@ -1,8 +1,8 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="savaHbaseMR:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/savaHbaseMR_jar</output-path>
-    <root id="archive" name="savaHbaseMR.jar">
-      <element id="module-output" name="savaHbaseMR" />
+  <artifact type="jar" name="saveHbaseMR:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/saveHbaseMR_jar</output-path>
+    <root id="archive" name="saveHbaseMR.jar">
+      <element id="module-output" name="saveHbaseMR" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/iq80/snappy/snappy/0.2/snappy-0.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/twill/twill-core/0.6.0-incubating/twill-core-0.6.0-incubating.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/hbase/hbase-server/1.1.2/hbase-server-1.1.2.jar" path-in-jar="/" />

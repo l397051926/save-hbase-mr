@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/savaHbaseMR.iml" filepath="$PROJECT_DIR$/savaHbaseMR.iml" />
+      <module fileurl="file://$PROJECT_DIR$/saveHbaseMR.iml" filepath="$PROJECT_DIR$/saveHbaseMR.iml" />
     </modules>
   </component>
 </project>

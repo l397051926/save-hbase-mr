@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
 Thu Mar 15 11:21:11 CST 2018:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0162-27ac-fca5-000005524ad8 
-on database directory C:\lmx\hbase\savaHbaseMR\metastore_db with class loader sun.misc.Launcher$AppClassLoader@14dad5dc 
+on database directory C:\lmx\hbase\saveHbaseMR\metastore_db with class loader sun.misc.Launcher$AppClassLoader@14dad5dc
 Loaded from file:/C:/soft/mvn_repo/mvn_repo/org/apache/derby/derby/10.10.2.0/derby-10.10.2.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_45-b14
-user.dir=C:\lmx\hbase\savaHbaseMR
+user.dir=C:\lmx\hbase\saveHbaseMR
 os.name=Windows 8.1
 os.arch=amd64
 os.version=6.3

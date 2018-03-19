@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.gennlife</groupId>
-    <artifactId>savaHbaseMR</artifactId>
+    <artifactId>saveHbaseMR</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>savaHbaseMR</name>
+    <name>saveHbaseMR</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -93,6 +93,7 @@
 
     </dependencies>
     <build>
+        <finalName>save-hbase-Mr</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

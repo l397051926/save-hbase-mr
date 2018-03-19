@@ -5,6 +5,7 @@ import com.gennlife.map.IndexHbaseMapper;
 import com.gennlife.map.RWSHbaseMapper;
 import com.gennlife.util.ConfigProperties;
 import com.gennlife.util.HbaseUtils;
+import com.gennlife.util.TimesUtil;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -125,7 +126,7 @@ public class SaveHbaseDriver extends Configured implements Tool {
             //开始执行
             int exitCode = ToolRunner.run(new SaveHbaseDriver(),args);
             long endTime = System.currentTimeMillis();
-            LOGGER.info("处理结束： 用时: "+(endTime-startTime)+"ms");
+            LOGGER.info("处理结束： 用时: "+ TimesUtil.formatTime(endTime-startTime));
             System.exit(exitCode);
         }catch (Exception e){
             LOGGER.error(e.getMessage());

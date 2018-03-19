@@ -1,11 +1,13 @@
 package com.gennlife;
 
-import com.gennlife.util.ConfigProperties;
+import com.gennlife.util.TimesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author liumingxin
@@ -23,6 +25,12 @@ public class TestDemo {
 //           System.out.println(args[i]);
 //       }
 
+        long x=126935;
+        System.out.println(TimesUtil.formatTime(x));
+
+
         System.out.println();
     }
+
+
 }
