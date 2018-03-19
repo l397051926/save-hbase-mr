@@ -58,7 +58,7 @@ public class IndexHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWri
 //            context.getCounter(ImportFromFile.Counters.LINES).increment(1);
             LOGGER.info("正在处理 索引表:  rowKey: "+rowKey +"数据");
         }catch (Exception e){
-            LOGGER.info("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());
+            LOGGER.error("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());
         }
     }
 }

@@ -29,8 +29,9 @@ public class HbaseUtils {
     public static Admin admin;
 
 
-
-    //初始化链接
+    /**
+     * 初始化连接
+     */
     public static void init(){
         configuration = HBaseConfiguration.create();
         configuration.set("hbase.zookeeper.quorum", HbaseZookeeper);
@@ -45,7 +46,9 @@ public class HbaseUtils {
         }
     }
 
-    //关闭连接
+    /**
+     * 关闭连接
+     */
     public static  void close(){
         try {
             if(null != admin)
@@ -58,16 +61,31 @@ public class HbaseUtils {
 
     }
 
+    /**
+     * 创建 RWS数据表
+     * @param tableName
+     * @throws IOException
+     */
     public static void creatRWSTable(String tableName) throws IOException {
         createTable(tableName,new String[]{ ConfigProperties.RWS_COLFAMILY1,ConfigProperties.RWS_COLFAMILY2});
     }
 
+    /**
+     * 创建  Index 数据表
+     * @param tableName
+     * @throws IOException
+     */
     public static void createIndexTable(String tableName) throws IOException {
         createTable(tableName,new String[]{ConfigProperties.INDEX_COLFAMILY1,ConfigProperties.INDEX_COLFAMILY2});
     }
 
 
-    //建表
+    /**
+     * 创建数据表
+     * @param tableNmae 表名
+     * @param cols 列族
+     * @throws IOException
+     */
     public static void createTable(String tableNmae,String[] cols) throws IOException {
 
         init();
@@ -79,7 +97,7 @@ public class HbaseUtils {
             HTableDescriptor hTableDescriptor = new HTableDescriptor(tableName);
             for(String col:cols){
                 if(StringUtils.isEmpty(col)){
-                    LOG.info(col+"列族不存在");
+                    LOG.info("列族为空");
                     continue;
                 }
                 HColumnDescriptor hColumnDescriptor = new HColumnDescriptor(col);
@@ -91,7 +109,11 @@ public class HbaseUtils {
         close();
     }
 
-    //删表
+    /**
+     * 删除数据表
+     * @param tableName
+     * @throws IOException
+     */
     public static void deleteTable(String tableName) throws IOException {
         init();
         TableName tn = TableName.valueOf(tableName);
@@ -102,7 +124,10 @@ public class HbaseUtils {
         close();
     }
 
-    //查看已有表
+    /**
+     * 查看已有表
+     * @throws IOException
+     */
     public static void listTables() throws IOException {
         init();
         HTableDescriptor hTableDescriptors[] = admin.listTables();
@@ -112,7 +137,15 @@ public class HbaseUtils {
         close();
     }
 
-    //插入数据
+    /**
+     * 插入数据
+     * @param tableName 表名
+     * @param rowkey 行键
+     * @param colFamily 列族
+     * @param col 列
+     * @param val 值
+     * @throws IOException
+     */
     public static void insterRow(String tableName,String rowkey,String colFamily,String col,String val) throws IOException {
         init();
         Table table = connection.getTable(TableName.valueOf(tableName));
@@ -128,7 +161,14 @@ public class HbaseUtils {
         close();
     }
 
-    //删除数据
+    /**
+     * 删除数据
+     * @param tableName 表名
+     * @param rowkey 行键
+     * @param colFamily 列族
+     * @param col 列
+     * @throws IOException
+     */
     public static void deleRow(String tableName,String rowkey,String colFamily,String col) throws IOException {
         init();
         Table table = connection.getTable(TableName.valueOf(tableName));
@@ -146,7 +186,14 @@ public class HbaseUtils {
         close();
     }
 
-    //根据rowkey查找数据
+    /**
+     * 查找详细数据
+     * @param tableName 表名
+     * @param rowkey 行键
+     * @param colFamily 列族
+     * @param col 列
+     * @throws IOException
+     */
     public static void getData(String tableName,String rowkey,String colFamily,String col)throws  IOException{
         init();
         Table table = connection.getTable(TableName.valueOf(tableName));
@@ -162,7 +209,10 @@ public class HbaseUtils {
         close();
     }
 
-    //格式化输出
+    /**
+     * 格式化输出
+     * @param result 结果集
+     */
     public static void showCell(Result result){
         Cell[] cells = result.rawCells();
         for(Cell cell:cells){
@@ -174,7 +224,13 @@ public class HbaseUtils {
         }
     }
 
-    //批量查找数据
+    /**
+     * 批量查找数据
+     * @param tableName 表名
+     * @param startRow 开始行键
+     * @param stopRow 结束行键
+     * @throws IOException
+     */
     public static void scanData(String tableName,String startRow,String stopRow)throws IOException{
         init();
         Table table = connection.getTable(TableName.valueOf(tableName));

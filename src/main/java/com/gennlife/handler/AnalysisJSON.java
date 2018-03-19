@@ -89,7 +89,7 @@ public class AnalysisJSON {
               }
           }
       }catch (Exception e){
-        LOGGER.info(str+"存入map 失败");
+        LOGGER.error(str+"存入map 失败");
       }
     }
 

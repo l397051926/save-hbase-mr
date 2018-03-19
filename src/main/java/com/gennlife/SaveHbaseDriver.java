@@ -39,16 +39,7 @@ public class SaveHbaseDriver extends Configured implements Tool {
         String[] args =new GenericOptionsParser(conf,strings).getRemainingArgs();
         Map<String,String> map =new HashMap<String, String>();
         // db=**** table=**** rwst=*** indext=****
-//
-//        try {
-//            map.put(args[0].split("=")[0],args[0].split("=")[1]);
-//            map.put(args[1].split("=")[0],args[1].split("=")[1]);
-//            map.put(args[2].split("=")[0],args[2].split("=")[1]);
-//            map.put(args[3].split("=")[0],args[3].split("=")[1]);
-//        }catch (Exception e){
-//            LOGGER.info("参数不正确， 正确参数格式为： db=**** table=**** rwst=*** indext=*** ，将未设置的参数为默认参数");
-//        }
-//
+
         if(args.length>0 && args.length==4){
             for(int i=0;i<args.length;i++){
                 map.put(args[i].split("=")[0],args[i].split("=")[1]);
@@ -57,7 +48,7 @@ public class SaveHbaseDriver extends Configured implements Tool {
             for(int i=0;i<args.length;i++){
                 map.put(args[i].split("=")[0],args[i].split("=")[1]);
             }
-            LOGGER.info("参数不正确， 正确参数格式为： db=**** table=**** rwst=*** indext=*** ，将未设置的参数为默认参数");
+            LOGGER.info("参数不正确， 正确参数格式为： db=**** table=**** rwst=*** indext=*** ，将未设置的参数自动设置为配置文件参数");
         }
 
 

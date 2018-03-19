@@ -1,5 +1,6 @@
 package com.gennlife;
 
+import com.gennlife.util.ConfigProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +19,10 @@ public class TestDemo {
 //        map.put("a","b");
 //        String a=map.get("C");
 //        System.out.println(a);
-       for (int i=0;i<args.length;i++){
-           System.out.println(args[i]);
-       }
+//       for (int i=0;i<args.length;i++){
+//           System.out.println(args[i]);
+//       }
+
+        System.out.println();
     }
 }
