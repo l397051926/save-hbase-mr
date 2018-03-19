@@ -92,7 +92,7 @@ public class HbaseUtils {
         TableName tableName = TableName.valueOf(tableNmae);
 
         if(admin.tableExists(tableName)){
-            LOG.info("数据库已经存在");
+            LOG.info(tableNmae+"-----数据库已经存在");
         }else {
             HTableDescriptor hTableDescriptor = new HTableDescriptor(tableName);
             for(String col:cols){
@@ -101,6 +101,7 @@ public class HbaseUtils {
                     continue;
                 }
                 HColumnDescriptor hColumnDescriptor = new HColumnDescriptor(col);
+                hColumnDescriptor.setMaxVersions(3);
                 hTableDescriptor.addFamily(hColumnDescriptor);
             }
             admin.createTable(hTableDescriptor);
