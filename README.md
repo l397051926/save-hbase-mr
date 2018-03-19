@@ -1,0 +1,1 @@
+hadoop jar xxxx.jar db=[dbName] table=[tableName] rwst=[RWS_HBASE_TableName] index[INDEX_HBASE_TableName]
