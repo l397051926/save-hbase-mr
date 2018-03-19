@@ -4,6 +4,7 @@ package com.gennlife;
 import com.gennlife.map.IndexHbaseMapper;
 import com.gennlife.map.RWSHbaseMapper;
 import com.gennlife.util.ConfigProperties;
+import com.gennlife.util.HbaseUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -13,38 +14,71 @@ import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableOutputFormat;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * @author liumingxin
  * @create 2018 15 20:55
- * @desc
+ * @desc  mr 入口 执行时可以采用带参数执行
+ * 执行命令： hadoop jar xxx.jar db=[数据库名] table=[表名] rwst=[导出的hbase表名] indext=[导出的hbase表名]
  **/
 public class SaveHbaseDriver extends Configured implements Tool {
     private static final Logger LOGGER= LoggerFactory.getLogger(SaveHbaseDriver.class);
-    public int run(String[] args) throws Exception {
-
-        if (args.length<4){
-            args=new String[4];
-        }
-
-        //定义要读的数据库名，以及表名
-        String idTable=args[0]==null? ConfigProperties.HIVE_DBNAME:args[0];
-        String hTableName=args[1]==null?ConfigProperties.HIVE_TABLENAME:args[1];
-
-        //定义表名
-        String  tableName=args[2]==null?ConfigProperties.RWS_TABLENAME:args[0];
-        //定义表名
-        String indexName=args[3]==null?ConfigProperties.INDEXT_TABLENAME:args[3];
-//        String input = "hdfs://192.168.187.21:9000/data/word/";       //本地
-//        String input = "hdfs://10.0.2.21:9000/opt/test/data1.txt";      //测试
-        String input = ConfigProperties.HADOOP_ADDRESS+"/"+idTable+".db/"+hTableName+"/";   //实际
+    public int run(String[] strings) throws Exception {
 
         Configuration conf = HBaseConfiguration.create();
+        //获取 参数
+        String[] args =new GenericOptionsParser(conf,strings).getRemainingArgs();
+        Map<String,String> map =new HashMap<String, String>();
+        // db=**** table=**** rwst=*** indext=****
+//
+//        try {
+//            map.put(args[0].split("=")[0],args[0].split("=")[1]);
+//            map.put(args[1].split("=")[0],args[1].split("=")[1]);
+//            map.put(args[2].split("=")[0],args[2].split("=")[1]);
+//            map.put(args[3].split("=")[0],args[3].split("=")[1]);
+//        }catch (Exception e){
+//            LOGGER.info("参数不正确， 正确参数格式为： db=**** table=**** rwst=*** indext=*** ，将未设置的参数为默认参数");
+//        }
+//
+        if(args.length>0 && args.length==4){
+            for(int i=0;i<args.length;i++){
+                map.put(args[i].split("=")[0],args[i].split("=")[1]);
+            }
+        }else {
+            for(int i=0;i<args.length;i++){
+                map.put(args[i].split("=")[0],args[i].split("=")[1]);
+            }
+            LOGGER.info("参数不正确， 正确参数格式为： db=**** table=**** rwst=*** indext=*** ，将未设置的参数为默认参数");
+        }
+
+
+
+        //定义要读的数据库名，以及表名
+        String dbTable=map.get("db")==null? ConfigProperties.HIVE_DBNAME:map.get("db");
+        String hTableName=map.get("table")==null?ConfigProperties.HIVE_TABLENAME:map.get("table");
+
+        //定义表名
+        String  tableName=map.get("rwst")==null?ConfigProperties.RWS_TABLENAME:map.get("rwst");
+        //定义表名
+        String indexName=map.get("indext")==null?ConfigProperties.INDEXT_TABLENAME:map.get("indext");
+//        String input = "hdfs://192.168.187.21:9000/data/word/";       //本地
+//        String input = "hdfs://10.0.2.21:9000/opt/test/data1.txt";      //测试
+        String input = ConfigProperties.HADOOP_ADDRESS+"/"+dbTable+".db/"+hTableName+"/";   //实际
+
+        //创建 Hbase 表
+        HbaseUtils.creatRWSTable(tableName);
+        HbaseUtils.createIndexTable(indexName);
+
+
 //        conf.set("hbase.zookeeper.quorum","192.168.187.21,192.168.187.22,192.168.187.23");        //本地
         conf.set("hbase.zookeeper.quorum",ConfigProperties.HBASE_ZOOKEEPER_QUORUM);
         conf.set("hbase.zookeeper.property.clientPort",ConfigProperties.HBASE_ZOOKEEPERP_ROPERTY_CLIENTPORT);
@@ -101,6 +135,7 @@ public class SaveHbaseDriver extends Configured implements Tool {
         try {
             long startTime = System.currentTimeMillis();
             LOGGER.info("开始处理MR");
+            //开始执行
             int exitCode = ToolRunner.run(new SaveHbaseDriver(),args);
             long endTime = System.currentTimeMillis();
             LOGGER.info("处理结束： 用时: "+(endTime-startTime)+"ms");

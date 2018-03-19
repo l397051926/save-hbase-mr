@@ -4,6 +4,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.datanucleus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,9 +20,9 @@ public class HbaseUtils {
     private static final Logger LOG= LoggerFactory.getLogger(HbaseUtils.class);
 
 //    public static final String HbaseZookeeper="192.168.187.21,192.168.187.22,192.168.187.23";
-    public static final String HbaseZookeeper="10.0.2.21,10.0.2.22,10.0.2.23";
-    public static final String HbaseZookeeperPoit="2181";
-    public static final String HbaseZnode="/hbase";
+    public static final String HbaseZookeeper=ConfigProperties.HBASE_ZOOKEEPER_QUORUM;
+    public static final String HbaseZookeeperPoit=ConfigProperties.HBASE_ZOOKEEPERP_ROPERTY_CLIENTPORT;
+    public static final String HbaseZnode=ConfigProperties.ZOOKEEPR_ZNODE_PARENT;
 
     public static Configuration configuration;
     public static Connection connection;
@@ -32,7 +33,7 @@ public class HbaseUtils {
     //初始化链接
     public static void init(){
         configuration = HBaseConfiguration.create();
-        configuration.set("hbase.zookeeper.quorum", HbaseUtils.HbaseZookeeper);
+        configuration.set("hbase.zookeeper.quorum", HbaseZookeeper);
         configuration.set("hbase.zookeeper.property.clientPort",HbaseZookeeperPoit);
         configuration.set("zookeeper.znode.parent",HbaseZnode);
 
@@ -57,6 +58,15 @@ public class HbaseUtils {
 
     }
 
+    public static void creatRWSTable(String tableName) throws IOException {
+        createTable(tableName,new String[]{ ConfigProperties.RWS_COLFAMILY1,ConfigProperties.RWS_COLFAMILY2});
+    }
+
+    public static void createIndexTable(String tableName) throws IOException {
+        createTable(tableName,new String[]{ConfigProperties.INDEX_COLFAMILY1,ConfigProperties.INDEX_COLFAMILY2});
+    }
+
+
     //建表
     public static void createTable(String tableNmae,String[] cols) throws IOException {
 
@@ -64,14 +74,19 @@ public class HbaseUtils {
         TableName tableName = TableName.valueOf(tableNmae);
 
         if(admin.tableExists(tableName)){
-            System.out.println("talbe is exists!");
+            LOG.info("数据库已经存在");
         }else {
             HTableDescriptor hTableDescriptor = new HTableDescriptor(tableName);
             for(String col:cols){
+                if(StringUtils.isEmpty(col)){
+                    LOG.info(col+"列族不存在");
+                    continue;
+                }
                 HColumnDescriptor hColumnDescriptor = new HColumnDescriptor(col);
                 hTableDescriptor.addFamily(hColumnDescriptor);
             }
             admin.createTable(hTableDescriptor);
+            LOG.info("数据库构建成功");
         }
         close();
     }

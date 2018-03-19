@@ -11,7 +11,7 @@ public class ConfigProperties {
     public static final String HBASE_ZOOKEEPERP_ROPERTY_CLIENTPORT="2181";
     public static final String ZOOKEEPR_ZNODE_PARENT="/hbase";
 
-    /*Hbase  相关配置*/
+    /*Hbase 输出  相关配置*/
     public static final String RWS_TABLENAME="testPatient";
     public static final String RWS_COLFAMILY1="patient_info";
     public static final String RWS_COLFAMILY2="visit_info";
@@ -19,6 +19,7 @@ public class ConfigProperties {
     public static final String INDEXT_TABLENAME="testIndex";
     public static final String INDEX_COLFAMILY1="data";
     public static final String INDEX_COLFAMILY2="";
+
 
     /*hadoop 相关配置*/
     public static final String HADOOP_ADDRESS="hdfs://10.0.2.21:9000/user/hive/warehouse";
