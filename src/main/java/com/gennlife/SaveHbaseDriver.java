@@ -50,9 +50,6 @@ public class SaveHbaseDriver extends Configured implements Tool {
             }
             LOGGER.info("参数不正确， 正确参数格式为： db=**** table=**** rwst=*** indext=*** ，将未设置的参数自动设置为配置文件参数");
         }
-
-
-
         //定义要读的数据库名，以及表名
         String dbTable=map.get("db")==null? ConfigProperties.HIVE_DBNAME:map.get("db");
         String hTableName=map.get("table")==null?ConfigProperties.HIVE_TABLENAME:map.get("table");
@@ -68,7 +65,6 @@ public class SaveHbaseDriver extends Configured implements Tool {
         //创建 Hbase 表
         HbaseUtils.creatRWSTable(tableName);
         HbaseUtils.createIndexTable(indexName);
-
 
 //        conf.set("hbase.zookeeper.quorum","192.168.187.21,192.168.187.22,192.168.187.23");        //本地
         conf.set("hbase.zookeeper.quorum",ConfigProperties.HBASE_ZOOKEEPER_QUORUM);
