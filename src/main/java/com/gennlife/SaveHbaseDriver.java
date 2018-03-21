@@ -6,21 +6,27 @@ import com.gennlife.map.RWSHbaseMapper;
 import com.gennlife.util.ConfigProperties;
 import com.gennlife.util.HbaseUtils;
 import com.gennlife.util.TimesUtil;
+import javafx.scene.control.Tab;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
+import org.apache.hadoop.hbase.mapreduce.HFileOutputFormat2;
+import org.apache.hadoop.hbase.mapreduce.LoadIncrementalHFiles;
 import org.apache.hadoop.hbase.mapreduce.TableOutputFormat;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,7 +100,7 @@ public class SaveHbaseDriver extends Configured implements Tool {
         job.setOutputValueClass(Put.class);
 
         job.setNumReduceTasks(0);
-
+        FileInputFormat.setMaxInputSplitSize(job,1024*1024*128);
         FileInputFormat.setInputPaths(job,new Path(input));
 
         job.waitForCompletion(true);
@@ -106,14 +112,15 @@ public class SaveHbaseDriver extends Configured implements Tool {
 
         indexJob.setJarByClass(SaveHbaseDriver.class);
         indexJob.setMapperClass(IndexHbaseMapper.class);
-
+        //!
         indexJob.setOutputFormatClass(TableOutputFormat.class);
         indexJob.getConfiguration().set(TableOutputFormat.OUTPUT_TABLE,indexName);
+
         indexJob.setOutputKeyClass(ImmutableBytesWritable.class);
         indexJob.setOutputValueClass(Put.class);
 
         indexJob.setNumReduceTasks(0);
-
+        FileInputFormat.setMaxInputSplitSize(indexJob,1024*1024*128);
         FileInputFormat.setInputPaths(indexJob,new Path(input));
 
         return indexJob.waitForCompletion(true)?0:1;
@@ -132,5 +139,6 @@ public class SaveHbaseDriver extends Configured implements Tool {
             LOGGER.error(e.getMessage());
         }
     }
+
 
 }

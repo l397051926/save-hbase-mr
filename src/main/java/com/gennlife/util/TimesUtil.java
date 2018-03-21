@@ -32,6 +32,6 @@ public class TimesUtil {
         String strMilliSecond = milliSecond < 10 ? "0" + milliSecond : "" + milliSecond;//毫秒
         strMilliSecond = milliSecond < 100 ? "0" + strMilliSecond : "" + strMilliSecond;
 
-        return strMinute + " 分钟 " + strSecond + " 秒";
+        return strDay+" 天 "+strHour +" 小时 "+strMinute + " 分钟 " + strSecond + " 秒 "+strMilliSecond+" 毫秒";
     }
 }

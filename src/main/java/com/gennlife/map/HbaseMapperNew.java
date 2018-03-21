@@ -8,7 +8,6 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hive.hcatalog.data.HCatRecord;
 import org.xerial.snappy.Snappy;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ import java.util.Map;
  * @create 2018 14 10:36
  * @desc  使用 hive连接方式
  **/
-public class HbaseMapperNew extends Mapper<WritableComparable, HCatRecord,ImmutableBytesWritable,Put> {
+//public class HbaseMapperNew extends Mapper<WritableComparable, HCatRecord,ImmutableBytesWritable,Put> {
 //
 //    private String colFamily1 = null;
 //    private String colFamily2 = null;
@@ -59,4 +58,4 @@ public class HbaseMapperNew extends Mapper<WritableComparable, HCatRecord,Immuta
 //        }
 //
 //    }
-}
+//}

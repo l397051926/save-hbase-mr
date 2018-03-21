@@ -7,12 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="saveHbaseMR" />
-        <module name="saveHbaseMR" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="saveHbaseMR" target="1.5" />
-      <module name="saveHbaseMR" target="1.5" />
+      <module name="saveHbaseMR" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

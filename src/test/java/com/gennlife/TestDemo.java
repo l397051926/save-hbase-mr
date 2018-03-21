@@ -1,9 +1,11 @@
 package com.gennlife;
 
+import com.gennlife.util.ConfigProperties;
 import com.gennlife.util.TimesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,12 +27,17 @@ public class TestDemo {
 //           System.out.println(args[i]);
 //       }
 
-        long x=126935;
-        System.out.println(TimesUtil.formatTime(x));
+//        long d=8123400;
+//        System.out.println( TimesUtil.formatTime(d));
+//        System.out.println(60*60*24*1000);
 
+        LOG.trace("this is trace");
+        LOG.debug("this is debug");
+        LOG.info("this is info");
+        LOG.warn("this is warn");
+        LOG.error("this is error");
+        System.out.println(ConfigProperties.HBASE_ZOOKEEPER_QUORUM);
 
-        System.out.println();
-    }
-
+            }
 
 }

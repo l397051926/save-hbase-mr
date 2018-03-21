@@ -39,9 +39,14 @@ public class ConfigProperties {
 
 
     static {
-        InputStream in = ConfigProperties.class.getClassLoader().getResourceAsStream("config.properties");
-        props =new Properties();
+        /*这里配置读取配置文件*/
+
         try {
+            InputStream in1 = ConfigProperties.class.getClassLoader().getResourceAsStream("config.properties");
+            Properties properties = new Properties();
+            properties.load(in1);
+            InputStream in = ConfigProperties.class.getClassLoader().getResourceAsStream(properties.getProperty("environment"));
+            props =new Properties();
             props.load(in);
 
             HBASE_ZOOKEEPER_QUORUM=props.getProperty("hbase_zookeeper_quorum");
