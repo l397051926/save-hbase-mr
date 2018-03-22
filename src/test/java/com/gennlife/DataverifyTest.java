@@ -1,6 +1,7 @@
 package com.gennlife;
 
 import org.apache.hadoop.hbase.util.Bytes;
+import org.junit.Test;
 import org.xerial.snappy.Snappy;
 
 import java.io.*;
@@ -10,8 +11,10 @@ import java.io.*;
  * @create 2018 16 10:26
  * @desc
  **/
-public class Dataverify {
-    public static void makjin(String[] args) throws IOException {
+public class DataverifyTest {
+
+    @Test
+    public void getDatasource() throws Exception {
         BufferedReader br;
         br = new BufferedReader(new InputStreamReader(new FileInputStream("dta.txt"),"utf-8"));
         String onLine = null;
@@ -27,4 +30,6 @@ public class Dataverify {
 
         System.out.println(ss);
     }
+
+
 }

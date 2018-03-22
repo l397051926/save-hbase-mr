@@ -2,6 +2,7 @@ package com.gennlife;
 
 import com.gennlife.util.ConfigProperties;
 import com.gennlife.util.TimesUtil;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +19,10 @@ import java.util.concurrent.TimeUnit;
  **/
 public class TestDemo {
     private static final Logger LOG= LoggerFactory.getLogger(TestDemo.class);
-    public static void main(String[] args) {
-//        Map<String,String> map  = new HashMap<String,String>();
+
+    @Test
+    public void TestDemo1(){
+        //        Map<String,String> map  = new HashMap<String,String>();
 //        map.put("a","b");
 //        String a=map.get("C");
 //        System.out.println(a);
@@ -37,7 +40,7 @@ public class TestDemo {
         LOG.warn("this is warn");
         LOG.error("this is error");
         System.out.println(ConfigProperties.HBASE_ZOOKEEPER_QUORUM);
+    }
 
-            }
 
 }
