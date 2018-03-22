@@ -33,10 +33,7 @@ public class AnalysisJSON {
         }
     }
 
-    /**
-     * 迭代解析字符串
-     * @param str
-     */
+
     public void AnalysisString(String str){
         try {
             Object o = JSON.parse(str);
@@ -67,10 +64,7 @@ public class AnalysisJSON {
         }
     }
 
-    /**
-     * 根据业务要求讲数据插入到map中
-     * @param str
-     */
+
     public void insertMap(String str){
       try{
           JSONArray jsonArray=JSONArray.parseArray(str);

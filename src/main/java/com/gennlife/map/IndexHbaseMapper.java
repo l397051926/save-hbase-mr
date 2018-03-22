@@ -47,15 +47,11 @@ public class IndexHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWri
              rowKey = lineString.split("\u0001")[0];
              data = lineString.split("\u0001")[1];
 
-//            String rowKey = lineString.split("\t")[0];  //测试
-//            String data = lineString.split("\t")[1];
-
             Put put = new Put(Bytes.toBytes(rowKey));
             put.addColumn(Bytes.toBytes(colFamily1),Bytes.toBytes("data"), ComPressUtils.compress(data));
-//            put.addColumn(Bytes.toBytes(colFamily1),Bytes.toBytes("data"), Bytes.toBytes(data));
 
             context.write(new ImmutableBytesWritable(Bytes.toBytes(rowKey)),put);
-//            context.getCounter(ImportFromFile.Counters.LINES).increment(1);
+
             LOGGER.info("正在处理 索引表:  rowKey: "+rowKey +"数据");
         }catch (Exception e){
             LOGGER.error("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());

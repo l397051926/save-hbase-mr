@@ -11,11 +11,7 @@ import java.io.IOException;
  **/
 public class ComPressUtils {
 
-    /**
-     * 压缩方式 默认snappy
-     * @param str
-     * @return
-     */
+
     public static byte[] compress(String str) throws IOException {
         if("gzip".equals(ConfigProperties.COMPRESS_NAME)){
             return GZIPUtils.compress(str);
@@ -25,11 +21,6 @@ public class ComPressUtils {
 
     }
 
-    /**
-     * 解压缩方式 默认snappy
-     * @param input
-     * @return
-     */
     public static byte[] unCompress(byte[] input) throws IOException {
         if("gzip".equals(ConfigProperties.COMPRESS_NAME)){
             return GZIPUtils.uncompress(input);

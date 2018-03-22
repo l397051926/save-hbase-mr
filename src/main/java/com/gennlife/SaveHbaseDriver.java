@@ -34,8 +34,7 @@ import java.util.Map;
 /**
  * @author liumingxin
  * @create 2018 15 20:55
- * @desc  mr 入口 执行时可以采用带参数执行
- * 执行命令： hadoop jar xxx.jar db=[数据库名] table=[表名] rwst=[导出的hbase表名] indext=[导出的hbase表名]
+ * @desc  mr 入口 执行时可以采用带参数执行  直接存储到hbase 方法
  **/
 public class SaveHbaseDriver extends Configured implements Tool {
     private static final Logger LOGGER= LoggerFactory.getLogger(SaveHbaseDriver.class);

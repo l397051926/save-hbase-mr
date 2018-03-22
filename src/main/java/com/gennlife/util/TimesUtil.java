@@ -3,15 +3,11 @@ package com.gennlife.util;
 /**
  * @author liumingxin
  * @create 2018 19 14:49
- * @desc
+ * @desc  时间工具类
  **/
 public class TimesUtil {
 
-    /**
-     * 时间转换
-     * @param ms
-     * @return
-     */
+
     public static String formatTime(long ms) {
 
         int ss = 1000;

@@ -34,7 +34,6 @@ import java.util.Map;
  * @author liumingxin
  * @create 2018 15 20:55
  * @desc mr 入口 执行时可以采用带参数执行
- * 执行命令： hadoop jar xxx.jar db=[数据库名] table=[表名] rwst=[导出的hbase表名] indext=[导出的hbase表名]
  **/
 public class SaveHbaseBulkloadDriver extends Configured implements Tool {
     private static final Logger LOGGER = LoggerFactory.getLogger(SaveHbaseBulkloadDriver.class);
@@ -128,7 +127,6 @@ public class SaveHbaseBulkloadDriver extends Configured implements Tool {
             indexjob.setSpeculativeExecution(false);
             indexjob.setReduceSpeculativeExecution(false);
             // in/out format
-//            job.setInputFormatClass(FileInputFormat.class);
             indexjob.setOutputFormatClass(HFileOutputFormat2.class);
 
             FileInputFormat.setInputPaths(indexjob, new Path(inputPath));
@@ -172,7 +170,6 @@ public class SaveHbaseBulkloadDriver extends Configured implements Tool {
                 LOGGER.error("loading failed.");
 
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();
