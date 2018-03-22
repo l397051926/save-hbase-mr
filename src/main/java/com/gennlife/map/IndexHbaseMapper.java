@@ -54,7 +54,7 @@ public class IndexHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWri
 
             LOGGER.info("正在处理 索引表:  rowKey: "+rowKey +"数据");
         }catch (Exception e){
-            LOGGER.error("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());
+            LOGGER.warn("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());
         }
     }
 }

@@ -67,7 +67,7 @@ public class RWSHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWrita
             LOGGER.info("正在处理RWS表:  rowKey: "+rowKey +"数据");
 
         }catch (Exception e){
-            LOGGER.error("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());
+            LOGGER.warn("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());
         }
     }
 

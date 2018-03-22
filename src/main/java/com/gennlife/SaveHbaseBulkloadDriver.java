@@ -172,7 +172,7 @@ public class SaveHbaseBulkloadDriver extends Configured implements Tool {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.warn(e.getMessage());
         } finally {
             if (hTableRws != null) {
                 hTableRws.close();
@@ -194,7 +194,7 @@ public class SaveHbaseBulkloadDriver extends Configured implements Tool {
             LOGGER.info("处理结束： 用时: " + TimesUtil.formatTime(endTime - startTime));
             System.exit(exitCode);
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.warn(e.getMessage());
         }
     }
 

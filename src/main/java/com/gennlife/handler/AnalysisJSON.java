@@ -28,7 +28,7 @@ public class AnalysisJSON {
             AnalysisString(str);
             return map;
         }catch (Exception e){
-            LOGGER.error(e.getMessage());
+            LOGGER.warn(e.getMessage());
             return null;
         }
     }
@@ -60,6 +60,7 @@ public class AnalysisJSON {
                 }
             }
         }catch (Exception e){
+            LOGGER.warn(e.getMessage());
             return;
         }
     }
@@ -83,7 +84,7 @@ public class AnalysisJSON {
               }
           }
       }catch (Exception e){
-        LOGGER.error(str+"存入map 失败");
+        LOGGER.warn(str+"存入map 失败");
       }
     }
 

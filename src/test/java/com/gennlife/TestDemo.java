@@ -37,6 +37,7 @@ public class TestDemo {
         LOG.trace("this is trace");
         LOG.debug("this is debug");
         LOG.info("this is info");
+        LOG.error("this is error");
         LOG.warn("this is warn");
         LOG.error("this is error");
         System.out.println(ConfigProperties.HBASE_ZOOKEEPER_QUORUM);
