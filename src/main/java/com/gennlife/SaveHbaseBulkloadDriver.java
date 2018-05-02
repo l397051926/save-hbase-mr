@@ -65,8 +65,8 @@ public class SaveHbaseBulkloadDriver extends Configured implements Tool {
         String indexName = map.get("indext") == null ? ConfigProperties.INDEXT_TABLENAME : map.get("indext");
 
         String inputPath = ConfigProperties.HADOOP_ADDRESS + "/" + dbTable + ".db/" + hTableName + "/";   //实际
-        String outputPathRWS = "hdfs://10.0.2.21:9000/opt/hbase/output/rws/"+tableName;
-        String outputPathIndex = "hdfs://10.0.2.21:9000/opt/hbase/output/index/"+indexName;
+        String outputPathRWS = "hdfs://10.0.2.27:9000/opt/hbase/output/rws/"+tableName;
+        String outputPathIndex = "hdfs://10.0.2.27:9000/opt/hbase/output/index/"+indexName;
 
         Path pathRWS = new Path(outputPathRWS);
         Path pathIndxe = new Path(outputPathIndex);
@@ -91,11 +91,10 @@ public class SaveHbaseBulkloadDriver extends Configured implements Tool {
         conf.set("mapreduce.reduce.memory.mb", "5000");
         conf.set("mapreduce.map.java.opts", "-Xmx6000m");
         conf.set("mapreduce.reduce.java.opts", "-Xmx6000m");
-        conf.set("mapreduce.input.fileinputformat.split.maxsize", "150000000");
-        conf.set("mapreduce.input.fileinputformat.split.minsize", "67000000");
+        conf.set("mapreduce.input.fileinputformat.split.maxsize", "450000000");
+        conf.set("mapreduce.input.fileinputformat.split.minsize", "350000000");
         conf.set("mapreduce.input.fileinputformat.split.minsize.per.node", "134000000");
         conf.set("mapreduce.input.fileinputformat.split.minsize.per.rack", "134000000");
-
 
         HTable hTableRws = null;
         HTable hTableIndex = null;
@@ -148,6 +147,7 @@ public class SaveHbaseBulkloadDriver extends Configured implements Tool {
                     LOGGER.error("Couldnt change the file permissions ", e);
 
                 }
+                LOGGER.info("-------------RWS!!---------开始loadFile 到Hbase 数据库中");
                 //载入到hbase表
                 LoadIncrementalHFiles loader = new LoadIncrementalHFiles(conf);
                 loader.doBulkLoad(new Path(outputPathRWS), hTableRws);
@@ -157,6 +157,7 @@ public class SaveHbaseBulkloadDriver extends Configured implements Tool {
 
             if (indexjob.waitForCompletion(true)) {
                 FsShell shell = new FsShell(conf);
+                LOGGER.info("------INDEX!!!--------开始loadFile  到 HBASE~~~~~~~~~~");
                 try {
                     shell.run(new String[]{"-chmod", "-R", "777", outputPathIndex});
                 } catch (Exception e) {

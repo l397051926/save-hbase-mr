@@ -47,6 +47,7 @@ public class RWSHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWrita
             String lineString = value.toString();
             AnalysisJSON analysisJSON = new AnalysisJSON();
             HashMap<String,String> map = analysisJSON.getMap(lineString.split("\u0001")[1]);
+//            HashMap<String,String> map = analysisJSON.getMap(lineString);
 
             rowKey= map.get("PATIENT_SN");
             map.remove("PATIENT_SN");
@@ -64,7 +65,7 @@ public class RWSHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWrita
 
             analysisJSON.clearMap();
 
-            LOGGER.info("正在处理RWS表:  rowKey: "+rowKey +"数据");
+//            LOGGER.info("正在处理RWS表:  rowKey: "+rowKey +"数据");
 
         }catch (Exception e){
             LOGGER.warn("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());

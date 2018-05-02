@@ -52,7 +52,7 @@ public class IndexHbaseMapper extends Mapper<LongWritable,Text,ImmutableBytesWri
 
             context.write(new ImmutableBytesWritable(Bytes.toBytes(rowKey)),put);
 
-            LOGGER.info("正在处理 索引表:  rowKey: "+rowKey +"数据");
+//            LOGGER.info("正在处理 索引表:  rowKey: "+rowKey +"数据");
         }catch (Exception e){
             LOGGER.warn("PATIENT_SN:"+rowKey+"发生问题："+e.getMessage());
         }
