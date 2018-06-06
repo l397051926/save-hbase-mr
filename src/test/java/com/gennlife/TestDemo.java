@@ -1,5 +1,6 @@
 package com.gennlife;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gennlife.util.ConfigProperties;
 import com.gennlife.util.TimesUtil;
 import org.junit.Test;
@@ -33,14 +34,18 @@ public class TestDemo {
 //        long d=8123400;
 //        System.out.println( TimesUtil.formatTime(d));
 //        System.out.println(60*60*24*1000);
+//
+//        LOG.trace("this is trace");
+//        LOG.debug("this is debug");
+//        LOG.info("this is info");
+//        LOG.error("this is error");
+//        LOG.warn("this is warn");
+//        LOG.error("this is error");
+//        System.out.println(ConfigProperties.HBASE_ZOOKEEPER_QUORUM);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("a","bn");
+        System.out.println(jsonObject);
 
-        LOG.trace("this is trace");
-        LOG.debug("this is debug");
-        LOG.info("this is info");
-        LOG.error("this is error");
-        LOG.warn("this is warn");
-        LOG.error("this is error");
-        System.out.println(ConfigProperties.HBASE_ZOOKEEPER_QUORUM);
     }
 
 

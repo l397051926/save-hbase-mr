@@ -12,28 +12,28 @@ import java.util.Map;
 /**
  * @author liumingxin
  * @create 2018 16 10:26
- * @desc
- **/
-public class DataverifyTest {
-
-    @Test
-    public void getDatasource() throws Exception {
-        String inputPart="data.json"; String tableName="";
-        BufferedReader br;
-        br = new BufferedReader(new InputStreamReader(new FileInputStream(inputPart), "utf-8"));
-        String onLine = null;
-        StringBuffer str = new StringBuffer();
-        while ((onLine = br.readLine()) != null) {
-            str.append(onLine.trim());
-        }
-        String ss = str.toString();
-        Map<String,String> map = new AnalysisJSON().getMap(ss);
-        System.out.println(ss);
-
-
-
-
-//        String x = "{\"a\":\"b\"}";
+// * @desc
+// **/
+//public class DataverifyTest {
+//
+////    @Test
+//    public void getDatasource() throws Exception {
+//        String inputPart="data.json"; String tableName="";
+//        BufferedReader br;
+//        br = new BufferedReader(new InputStreamReader(new FileInputStream(inputPart), "utf-8"));
+//        String onLine = null;
+//        StringBuffer str = new StringBuffer();
+//        while ((onLine = br.readLine()) != null) {
+//            str.append(onLine.trim());
+//        }
+//        String ss = str.toString();
+//        Map<String,String> map = new AnalysisJSON().getMap(ss);
+//        System.out.println(ss);
+//
+//
+//
+//
+////        String x = "{\"a\":\"b\"}";
 //        Object o = JSON.parse(x);
 //        System.out.println("A");
 //        BufferedReader br;
@@ -44,13 +44,13 @@ public class DataverifyTest {
 //            str.append(onLine);
 //        }
 //        String ss=str.toString();
-//        byte[] oo=Snappy.compress(ss);
-//        String xx=new String(oo);
-//        byte[] gg = Snappy.uncompress(oo);
-//        String zz=new String(gg);
+////        byte[] oo=Snappy.compress(ss);
+////        String xx=new String(oo);
+////        byte[] gg = Snappy.uncompress(oo);
+////        String zz=new String(gg);
+////
+////        System.out.println(ss);
+//    }
 //
-//        System.out.println(ss);
-    }
-
-
-}
+//
+//}

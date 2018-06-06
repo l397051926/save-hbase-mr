@@ -66,8 +66,8 @@ public class SaveHbaseDriver extends Configured implements Tool {
         //定义表名
         String indexName=map.get("indext")==null?ConfigProperties.INDEXT_TABLENAME:map.get("indext");
 //        String input = "hdfs://192.168.187.21:9000/data/word/";       //本地
-        String input =  ConfigProperties.HADOOP_ADDRESS;      //测试
-//        String input = ConfigProperties.HADOOP_ADDRESS+"/"+dbTable+".db/"+hTableName+"/";   //实际
+//        String input =  ConfigProperties.HADOOP_ADDRESS;      //测试
+        String input = ConfigProperties.HADOOP_ADDRESS+"/"+dbTable+".db/"+hTableName+"/";   //实际
 
         //创建 Hbase 表
         HbaseUtils.creatRWSTable(tableName);
@@ -77,7 +77,7 @@ public class SaveHbaseDriver extends Configured implements Tool {
         conf.set("hbase.zookeeper.quorum",ConfigProperties.HBASE_ZOOKEEPER_QUORUM);
         conf.set("hbase.zookeeper.property.clientPort",ConfigProperties.HBASE_ZOOKEEPERP_ROPERTY_CLIENTPORT);
         conf.set("zookeeper.znode.parent",ConfigProperties.ZOOKEEPR_ZNODE_PARENT);
-
+        conf.setInt("mapred.task.timeout", 1800000);
         conf.set("mapreduce.map.memory.mb", "5000");
         conf.set("mapreduce.reduce.memory.mb", "5000");
         conf.set("mapreduce.map.java.opts", "-Xmx6000m");
